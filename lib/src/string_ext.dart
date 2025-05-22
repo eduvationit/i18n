@@ -9,9 +9,6 @@ extension StringX on String {
 
     final buffer = StringBuffer(parts.first)
       ..writeAll(parts.sublist(1).map((e) {
-        if (e.length != 2) {
-          throw ArgumentError('$e is not a valid language or country code');
-        }
         return e.firstUpper();
       }));
     return buffer.toString();

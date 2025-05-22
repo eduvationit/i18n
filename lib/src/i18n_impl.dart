@@ -22,6 +22,8 @@ String generateDartContentFromYaml(Metadata meta, String yamlContent) {
     '// ignore_for_file: annotate_overrides, non_constant_identifier_names, prefer_single_quotes, unused_element, unused_field',
   );
   output.writeln('import \'package:i18n/i18n.dart\' as i18n;');
+  output.writeln('import \'dart:ui\';');
+
   if (meta.defaultFileName != null) {
     output.writeln("import '${meta.defaultFileName}';");
   }
@@ -160,10 +162,19 @@ void renderTranslation(Translation translation, StringBuffer output) {
       final comment = _wrapWithComments(v);
       output.writeln(comment);
       if (k.contains('(')) {
-        // function
-        output.writeln('\tString $keyName => """$v""";');
+        if(v.toString().startsWith("color_")) {
+          output.writeln('\tColor $keyName => Color(${v.toString().substring("color_".length)});');
+        }
+        else {
+          output.writeln('\tString $keyName => """$v""";');
+        }
       } else {
-        output.writeln('\tString get $keyName => """$v""";');
+        if(v.toString().startsWith("color_")) {
+          output.writeln('\tColor get $keyName => Color(${v.toString().substring("color_".length)});');
+        }
+        else {
+          output.writeln('\tString get $keyName => """$v""";');
+        }
       }
     }
   });
@@ -193,10 +204,10 @@ String _wrapWithComments(dynamic obj) {
 }
 
 void prepareTranslationList(
-  List<Translation> translations,
-  YamlMap messages,
-  Metadata name,
-) {
+    List<Translation> translations,
+    YamlMap messages,
+    Metadata name,
+    ) {
   final translation = Translation(name, messages);
   translations.add(translation);
 

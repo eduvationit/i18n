@@ -97,11 +97,6 @@ Metadata generateMessageObjectName(String fileName) {
     }
     if (nameParts.length >= 2) {
       languageCode = nameParts[1];
-      if (twoCharsLower.allMatches(languageCode).length != 1) {
-        throw Exception(
-          'Wrong language code "$languageCode" in file name "$fileName". Language code must match $twoCharsLower',
-        );
-      }
       languageCode = languageCode;
       localeName = languageCode;
     }

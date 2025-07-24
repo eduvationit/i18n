@@ -171,7 +171,7 @@ void renderTranslation(Translation translation, StringBuffer output) {
           output.writeln('\tColor get $keyName => Color(${v.toString().substring("color_".length)});');
         }
         else if(v.toString().startsWith("number_")) {
-          output.writeln('\tdouble $keyName => ${v.toString().substring("number_".length)};');
+          output.writeln('\tdouble get $keyName => ${v.toString().substring("number_".length)};');
         }
         else {
           output.writeln('\tString get $keyName => """$v""";');
